@@ -1,0 +1,491 @@
+/*
+Theme Name: HeavenHack
+Theme URI: https://github.com/UrsHeaven/HeavenHack
+Author: Urs Heaven
+Author URI: https://ursheaven.github.io
+Description: "A BOX LAND" — A boundless cybernetic space where Mythos and Logos intersect. A fully customizable terminal theme built for philosophy and hacking.
+Version: 6.0.0
+text-domain: heavenhack
+*/
+
+:root {
+    --term-bg: #050510;
+    --term-green: #00f0ff;
+    --term-dim: #005f66;
+    --term-alert: #ff0055;
+    --term-cyan: #00f0ff;
+    --term-yellow: #ffee00;
+    --scan-line: rgba(0, 240, 255, 0.03);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--term-bg);
+    color: var(--term-green);
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--term-cyan);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+a:hover {
+    background: var(--term-cyan);
+    color: #000;
+    box-shadow: 0 0 10px var(--term-cyan);
+}
+
+.console-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    border-left: 1px dashed var(--term-dim);
+    border-right: 1px dashed var(--term-dim);
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    grid-template-areas: "header header" "main sidebar" "footer footer";
+}
+
+@media (max-width: 768px) {
+    .console-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "main" "sidebar" "footer";
+    }
+}
+
+.sys-header {
+    grid-area: header;
+}
+
+.log-stream {
+    grid-area: main;
+}
+
+.single-stream {
+    grid-area: main;
+}
+
+.sys-sidebar {
+    grid-area: sidebar;
+}
+
+.sys-footer {
+    grid-area: footer;
+}
+
+.sys-header {
+    border-bottom: 2px solid var(--term-cyan);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.sys-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--term-cyan);
+    margin: 0;
+}
+
+.sys-meta {
+    font-size: 0.8rem;
+    color: var(--term-dim);
+    text-align: right;
+}
+
+.sys-desc {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--term-green);
+}
+
+.log-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2px;
+}
+
+.log-prefix {
+    min-width: 70px;
+    font-weight: bold;
+    color: var(--term-cyan);
+}
+
+.log-text {
+    flex: 1;
+}
+
+.log-entry {
+    margin-bottom: 3rem;
+    border: 1px solid var(--term-dim);
+    padding: 1.5rem;
+    position: relative;
+    background: rgba(0, 20, 0, 0.3);
+}
+
+.log-entry:hover {
+    border-color: var(--term-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+}
+
+.log-header {
+    border-bottom: 1px dotted var(--term-dim);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--term-dim);
+}
+
+.log-title {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.log-title a {
+    color: var(--term-cyan);
+}
+
+.log-title a:hover {
+    background: transparent;
+    color: var(--term-alert);
+    text-shadow: 2px 0 var(--term-cyan);
+}
+
+.cmd-panel {
+    border: 1px solid var(--widget-border-color, var(--term-dim));
+    padding: 1rem;
+    margin-bottom: 2rem;
+    background: var(--widget-bg-color, rgba(0, 10, 0, 0.5));
+}
+
+.cmd-title {
+    background: var(--term-dim);
+    border-bottom: 1px dashed var(--widget-border-color, var(--term-dim));
+    color: var(--widget-title-color, var(--term-cyan));
+    padding: 2px 5px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    background: transparent;
+    /* Override old bright background approach */
+}
+
+.cmd-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cmd-panel li {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--term-dim);
+    padding-bottom: 2px;
+}
+
+.cmd-panel li::before {
+    content: "> ";
+    color: var(--term-dim);
+}
+
+.grep-search-form {
+    display: flex;
+}
+
+.grep-input {
+    background: transparent;
+    border: 1px solid var(--term-cyan);
+    color: var(--term-cyan);
+    font-family: monospace;
+    padding: 5px;
+    width: 100%;
+}
+
+.grep-submit {
+    display: none;
+}
+
+.sys-footer {
+    margin-top: 4rem;
+    border-top: 2px solid var(--term-dim);
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--term-dim);
+}
+
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--scan-line) 50%, rgba(0, 0, 0, 0) 50%);
+    background-size: 100% 4px;
+    pointer-events: none !important;
+    z-index: 9999;
+}
+
+.code-rain-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none !important;
+}
+
+.crt-flicker {
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.97;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.98;
+    }
+}
+
+.related-protocols {
+    margin-top: 3rem;
+    border-top: 2px solid var(--term-dim);
+    padding-top: 1rem;
+}
+
+.rp-title {
+    color: var(--term-yellow);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.rp-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.rp-item {
+    border: 1px solid var(--term-dim);
+    padding: 10px;
+}
+
+.rp-item a {
+    color: var(--term-cyan);
+    display: block;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--term-dim);
+    filter: grayscale(100%) sepia(100%) hue-rotate(90deg);
+}
+
+img:hover {
+    filter: none;
+}
+
+@media (max-width: 768px) {
+    .console-container {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+        border: none;
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow-x: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100vw;
+    }
+
+    .sys-header,
+    .sys-desc,
+    .sys-meta,
+    .log-stream,
+    .single-stream,
+    .sys-sidebar,
+    .cmd-panel,
+    .log-entry {
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+
+    .sys-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sys-title {
+        font-size: 1.6rem;
+        line-height: 1.2;
+    }
+
+    .log-row {
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 5px;
+    }
+
+    .log-prefix {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .sys-meta {
+        text-align: left;
+        margin-top: 10px;
+        font-size: 0.75rem;
+    }
+
+    .log-title {
+        font-size: 1.3rem;
+        word-break: break-word;
+    }
+
+    pre,
+    code,
+    .rp-item {
+        max-width: 100%;
+        overflow-x: auto;
+        box-sizing: border-box;
+    }
+
+    .rp-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   GUTENBERG BLOCK EDITOR OVERRIDES (TERMINAL AESTHETIC FIX)
+   ========================================================================== */
+.widget_block,
+.wp-block-group,
+.wp-block-search,
+.wp-block-latest-posts,
+.wp-block-latest-comments,
+.wp-block-archives,
+.wp-block-categories {
+    background: transparent !important;
+    color: var(--term-green) !important;
+}
+
+.wp-block-search__input {
+    background: #000 !important;
+    border: 1px solid var(--term-cyan) !important;
+    color: var(--term-cyan) !important;
+    font-family: inherit !important;
+    border-radius: 0 !important;
+}
+
+.wp-block-search__button {
+    background: var(--term-dim) !important;
+    color: #000 !important;
+    border: 1px solid var(--term-cyan) !important;
+    border-radius: 0 !important;
+    font-family: inherit !important;
+}
+
+.wp-block-heading {
+    color: var(--term-cyan) !important;
+    font-family: inherit !important;
+    border-bottom: 1px dashed var(--term-dim) !important;
+    padding-bottom: 5px !important;
+    margin-bottom: 15px !important;
+    background: transparent !important;
+}
+
+.log-content * {
+    background-color: transparent !important;
+}
+
+.wp-block-latest-posts a,
+.wp-block-latest-comments a,
+.wp-block-archives a,
+.wp-block-categories a {
+    color: var(--term-cyan) !important;
+    text-decoration: none !important;
+}
+
+.wp-block-latest-posts a:hover,
+.wp-block-latest-comments a:hover,
+.wp-block-archives a:hover,
+.wp-block-categories a:hover {
+    background: var(--term-cyan) !important;
+    color: #000 !important;
+}
+
+.log-entry ul,
+.log-entry ol {
+    padding-left: 20px;
+}
+
+.log-entry li {
+    margin-bottom: 5px;
+}
+
+/* ==========================================================================
+   NAVIGATION MENU AESTHETICS
+   ========================================================================== */
+.main-nav {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--term-dim);
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.main-nav a {
+    color: var(--menu-link-color, var(--term-cyan));
+    text-decoration: none;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav .current-menu-item>a {
+    color: var(--term-cyan) !important;
+    background: var(--menu-hover-bg, rgba(0, 240, 255, 0.1));
+    border-color: var(--term-cyan);
+    box-shadow: 0 0 10px var(--menu-hover-bg, rgba(0, 240, 255, 0.2));
+}
