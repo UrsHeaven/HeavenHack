@@ -1,11 +1,13 @@
 /*
-Theme Name: HeavenHack
-Theme URI: https://github.com/UrsHeaven/HeavenHack
+Theme Name: JollyHack
+Theme URI: https://github.com/UndefinedFlower/JollyHack
 Author: Urs Heaven
 Author URI: https://ursheaven.github.io
-Description: "A BOX LAND" — A boundless cybernetic space where Mythos and Logos intersect. A fully customizable terminal theme built for philosophy and hacking.
-Version: 6.0.0
-text-domain: heavenhack
+Description: A terminal-aesthetic WordPress theme with CRT scanlines, code rain, and full Customizer support. Forked from HeavenHack. Features image optimization, post thumbnails, responsive layout, and Gutenberg compatibility.
+Version: 7.0
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+text-domain: jolly-hack
 */
 
 :root {
@@ -302,11 +304,34 @@ img {
     max-width: 100%;
     height: auto;
     border: 1px solid var(--term-dim);
-    filter: grayscale(100%) sepia(100%) hue-rotate(90deg);
+    filter: contrast(1.1) brightness(0.95);
+    transition: filter 0.3s ease, box-shadow 0.3s ease;
 }
 
 img:hover {
     filter: none;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+/* Post Thumbnail */
+.log-thumbnail {
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    border: 1px solid var(--term-dim);
+    line-height: 0;
+}
+
+.log-thumbnail img {
+    width: 100%;
+    height: auto;
+    border: none;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.log-thumbnail:hover img {
+    transform: scale(1.02);
+    filter: none;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
 }
 
 @media (max-width: 768px) {

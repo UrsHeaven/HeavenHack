@@ -12,6 +12,11 @@
                 <span class="log-date"><?php the_date('Y.m.d H:i:s'); ?></span> | 
                 <span class="log-author">AUTH: <?php the_author(); ?></span>
             </header>
+            <?php if ( has_post_thumbnail() ) : ?>
+                <div class="log-thumbnail">
+                    <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('medium_large'); ?></a>
+                </div>
+            <?php endif; ?>
             <h2 class="log-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
             <div class="log-content">
                 <?php the_excerpt(); ?>
